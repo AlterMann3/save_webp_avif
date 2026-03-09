@@ -1,12 +1,12 @@
 """
-@author: AudioscavengeR
-@title: Save WebP
-@nickname: Save WebP
-@description: Custom node to save your images in WebP.
+@author: AlterMann
+@title: Save WebP-AVIF
+@nickname: Save WebP-AVIF
+@description: Custom node to save your images in WebP or AVIF.
 """
 
 
-from .save_webp import NODE_CLASS_MAPPINGS, NODE_DISPLAY_NAME_MAPPINGS
+from .save_webp-avif import NODE_CLASS_MAPPINGS, NODE_DISPLAY_NAME_MAPPINGS
 
 WEB_DIRECTORY = "./web"
 
@@ -20,6 +20,6 @@ if hasattr(PromptServer, "instance"):
   # NOTE: we add an extra static path to avoid comfy mechanism
   # that loads every script in web.
   PromptServer.instance.app.add_routes(
-      [web.static("/save_webp", (Path(__file__).parent.absolute() / "assets").as_posix())]
+      [web.static("/save_webp-avif", (Path(__file__).parent.absolute() / "assets").as_posix())]
   )
 

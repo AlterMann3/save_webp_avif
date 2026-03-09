@@ -1,15 +1,15 @@
 [project]
-name = "save_webp"
-description = "Save as WebP in ComfyUI."
+name = "save_webp-avif"
+description = "Save as WebP or AVIF in ComfyUI."
 version = "1.0"
 license = "AGPL3.0"
-dependencies = ["piexif", "pillow"]
+dependencies = ["piexif", "pillow", "pillow-avif-plugin"]
 
 [project.urls]
-Repository = "https://github.com/AlterMann3/save_webp"
+Repository = "https://github.com/AlterMann3/save_webp-avif"
 #  Used by Comfy Registry https://comfyregistry.org
 
 [tool.comfy]
 PublisherId = "AlterMann3"
-DisplayName = "save_webp"
+DisplayName = "save_webp-avif"
 Icon = ""
