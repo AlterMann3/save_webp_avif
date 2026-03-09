@@ -6,7 +6,7 @@
 """
 
 
-from .save_webp-avif import NODE_CLASS_MAPPINGS, NODE_DISPLAY_NAME_MAPPINGS
+from .save_webp_avif import NODE_CLASS_MAPPINGS, NODE_DISPLAY_NAME_MAPPINGS
 
 WEB_DIRECTORY = "./web"
 
@@ -20,6 +20,6 @@ if hasattr(PromptServer, "instance"):
   # NOTE: we add an extra static path to avoid comfy mechanism
   # that loads every script in web.
   PromptServer.instance.app.add_routes(
-      [web.static("/save_webp-avif", (Path(__file__).parent.absolute() / "assets").as_posix())]
+      [web.static("/save_webp_avif", (Path(__file__).parent.absolute() / "assets").as_posix())]
   )
 
