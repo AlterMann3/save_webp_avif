@@ -1,4 +1,5 @@
 import os
+import re
 import json
 import numpy as np
 from datetime import datetime
@@ -25,6 +26,7 @@ class SaveWebpAvif:
     - AVIF: subsampling fixed to 4:4:4, speed fixed to 6
     - Metadata (prompt + workflow) is stored in EXIF
     - Filename engine: supports strftime style patterns in filename_prefix (default: CUI(%y%m%d_%H%M))
+    - Counter persists across workflow runs (won't overwrite existing files)
     """
     RETURN_TYPES = ()
     FUNCTION = "save_images"
@@ -32,7 +34,6 @@ class SaveWebpAvif:
     CATEGORY = "image"
 
     type = "output"
-    prefix_append = ""
 
     # Visible choices for format dropdown (keep leading dot for compatibility)
     output_formats = [".webp", ".avif"]
@@ -72,6 +73,50 @@ class SaveWebpAvif:
             # Fallback to raw prefix if formatting fails
             pass
         return prefix
+
+    # -----------------------------
+    # Counter management (from save_webp.py)
+    # -----------------------------
+    def get_latest_counter(self, folder_path, filename_prefix, counter_digits=3, output_format='.avif'):
+        """
+        Get current counter number from file names in the output folder.
+        Scans existing files and finds the highest counter value.
+        Returns the next counter value (max + 1).
+        """
+        counter = 1
+        
+        if not os.path.exists(folder_path):
+            return counter
+        
+        try:
+            # List all files in the folder
+            files = os.listdir(folder_path)
+            
+            # Filter files that start with the prefix and end with the output format
+            ext = output_format.lower()
+            matching_files = [
+                f for f in files 
+                if f.startswith(filename_prefix) and f.endswith(ext)
+            ]
+            
+            # Extract counter numbers from filenames
+            # Pattern: prefix_XXX.ext where XXX is the counter
+            pattern = rf"{re.escape(filename_prefix)}_(\d{{{counter_digits}}}){re.escape(ext)}"
+            
+            counters = []
+            for file in matching_files:
+                match = re.match(pattern, file)
+                if match:
+                    counters.append(int(match.group(1)))
+            
+            # If we found existing counters, start from the highest + 1
+            if counters:
+                counter = max(counters) + 1
+                
+        except Exception as e:
+            print(f"[save_webp_avif] error finding latest counter: {e}")
+        
+        return counter
 
     # -----------------------------
     # Metadata for AVIF (EXIF UserComment 0x9286)
@@ -199,8 +244,8 @@ class SaveWebpAvif:
         # Ensure extension without leading dot
         ext = output_format.lstrip(".").lower()
 
-        # Counter starts at 1, 3 digits
-        counter = 1
+        # Get the latest counter from existing files (prevents overwriting)
+        counter = self.get_latest_counter(output_dir, filename_base, counter_digits=3, output_format=output_format)
 
         for image in images:
             # Convert tensor to uint8 image
