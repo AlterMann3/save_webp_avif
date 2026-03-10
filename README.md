@@ -4,7 +4,7 @@ WebP or AVIF image output node for ComfyUI
 - Workflow metadata save/load (drap&drop) supported.
 - AVIF color quality (subsampling) is high: 4:4:4
 - AVIF encoder speed is optimum: 6
-- Multiple files save (batch) supported.
+- Multiple images save (batch) supported.
 - Custom filename and date/time supported. (https://www.man7.org/linux/man-pages/man1/date.1.html)
 - Custom folder not supported.
 - Quality 100: Lossless.
