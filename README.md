@@ -5,8 +5,8 @@ WebP or AVIF image output node for ComfyUI
 - AVIF color quality (subsampling) is high: 4:4:4
 - AVIF encoder speed is optimum: 6
 - Multiple images save (batch) supported.
-- Custom filename and date/time supported. (https://www.man7.org/linux/man-pages/man1/date.1.html)
-- Custom folder not supported.
+- Custom filenames and date/time supported. (https://www.man7.org/linux/man-pages/man1/date.1.html)
+- Custom folders not supported.
 - Quality 100: Lossless.
 
 
