@@ -3,7 +3,6 @@ import json
 import numpy as np
 from datetime import datetime
 from PIL import Image
-import folder_paths
 
 # Check avif plugin
 try:
@@ -23,8 +22,8 @@ except Exception:
 class SaveWebpAvif:
     """
     Save node that supports WebP and AVIF.
-    - AVIF: subsampling fixed to 4:4:4, speed fixed to 6, chroma_delta_q enabled
-    - Metadata (prompt + possible workflow) is stored in EXIF
+    - AVIF: subsampling fixed to 4:4:4, speed fixed to 6
+    - Metadata (prompt + workflow) is stored in EXIF
     - Filename engine: supports strftime style patterns in filename_prefix (default: CUI(%y%m%d_%H%M))
     """
     RETURN_TYPES = ()
@@ -33,13 +32,13 @@ class SaveWebpAvif:
     CATEGORY = "image"
 
     type = "output"
-    prefix_append = " "
+    prefix_append = ""
 
     # Visible choices for format dropdown (keep leading dot for compatibility)
     output_formats = [".webp", ".avif"]
 
     def __init__(self):
-        self.output_dir = folder_paths.get_output_directory()
+        self.output_dir = os.path.join(os.path.dirname(os.path.realpath(__file__)), "..", "..", "output")
 
     @classmethod
     def INPUT_TYPES(cls):
@@ -167,11 +166,6 @@ class SaveWebpAvif:
             # Encoder tuning (hardcoded per user's request)
             kwargs["speed"] = 6
             kwargs["subsampling"] = "4:4:4"  # Must be "4:4:4" (not "444")
-            # Bonus compression tweak (usually safe)
-            try:
-                kwargs["chroma_delta_q"] = True
-            except Exception:
-                pass
 
         elif fmt.lower() == ".webp":
             # WebP: support lossless when quality==100
@@ -192,33 +186,31 @@ class SaveWebpAvif:
                     prompt=None,
                     extra_pnginfo=None):
 
-        # Allow appended prefix behavior
-        filename_prefix = filename_prefix + self.prefix_append
-
         # Timestamp and filename base
         timestamp = datetime.now()
         filename_base = self.build_filename_from_prefix(filename_prefix, timestamp)
 
-        # Use folder_paths helper to determine folder and the "filename" pattern
-        full_output_folder, filename_pattern, counter, subfolder, filename_prefix_out = folder_paths.get_save_image_path(
-            filename_base, self.output_dir, images[0].shape[1], images[0].shape[0]
-        )
-
-        os.makedirs(full_output_folder, exist_ok=True)
+        # Simple output directory (no folder_paths)
+        output_dir = os.path.join(os.path.dirname(os.path.realpath(__file__)), "..", "..", "output")
+        os.makedirs(output_dir, exist_ok=True)
 
         results = []
 
         # Ensure extension without leading dot
         ext = output_format.lstrip(".").lower()
 
+        # Counter starts at 1, 3 digits
+        counter = 1
+
         for image in images:
             # Convert tensor to uint8 image
             arr = 255.0 * image.cpu().numpy()
             pil_img = Image.fromarray(np.clip(arr, 0, 255).astype(np.uint8))
 
-            # Build filename using the filename_pattern and counter
-            file = f"{filename_pattern}_{counter:05}.{ext}"
-            out_path = os.path.join(full_output_folder, file)
+            # Build filename: prefix + _ + 3-digit counter + extension
+            # Example: CUI(260310_0100)_001.avif
+            file = f"{filename_base}_{counter:03}.{ext}"
+            out_path = os.path.join(output_dir, file)
 
             # Save with appropriate params
             try:
@@ -227,7 +219,7 @@ class SaveWebpAvif:
                 # Surface a helpful message in logs but continue
                 print(f"[save_webp_avif] error saving {out_path}: {e}")
 
-            results.append({"filename": file, "subfolder": subfolder, "type": self.type})
+            results.append({"filename": file, "subfolder": "", "type": self.type})
             counter += 1
 
         return {"ui": {"images": results}}
