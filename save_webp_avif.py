@@ -47,7 +47,7 @@ class SaveWebpAvif:
             "required": {
                 "images": ("IMAGE",),
                 "filename_prefix": ("STRING", {"default": "CUI(%y%m%d_%H%M)"}),
-                "quality": ("INT", {"default": 96, "min": 0, "max": 100}),
+                "quality": ("INT", {"default": 90, "min": 0, "max": 100}),
                 "output_format": (cls.output_formats, {"default": ".avif"}),
                 "avif_subsampling": (cls.avif_subsampling_options, {"default": "4:4:4"}),
             },
@@ -188,7 +188,7 @@ class SaveWebpAvif:
             kwargs["exif"] = exif_data
 
         # Quality setting
-        q = int(quality) if quality else 96
+        q = int(quality) if quality else 90
         kwargs["quality"] = q
 
         # Format-specific encoding options
@@ -208,7 +208,7 @@ class SaveWebpAvif:
     # -----------------------------
     # Main entry point
     # -----------------------------
-    def save_images(self, images, filename_prefix="CUI(%y%m%d_%H%M)", quality=96, 
+    def save_images(self, images, filename_prefix="CUI(%y%m%d_%H%M)", quality=90, 
                     output_format=".avif", avif_subsampling="4:4:4", prompt=None, extra_pnginfo=None):
 
         timestamp = datetime.now()
