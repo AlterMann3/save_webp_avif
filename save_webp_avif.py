@@ -20,12 +20,10 @@ except Exception:
         disable_metadata = False
     args = _Args()
 
-
 class SaveWebpAvif:
     """
     Save node that supports WebP and AVIF with metadata support.
-    - AVIF: Uses EXIF UserComment (0x9286) for metadata, configurable subsampling
-    - WebP: Uses EXIF Make (0x010f) + ImageDescription (0x010e) for metadata
+    - AVIF/WebP: Uses EXIF Make (0x010f) + ImageDescription (0x010e) for metadata
     - Counter persists across workflow runs (prevents overwriting)
     - Filename supports strftime patterns (default: CUI(%y%m%d_%H%M))
     """
@@ -33,7 +31,6 @@ class SaveWebpAvif:
     FUNCTION = "save_images"
     OUTPUT_NODE = True
     CATEGORY = "image"
-
     type = "output"
     output_formats = [".webp", ".avif"]
     avif_subsampling_options = ["4:2:0", "4:4:4"]
@@ -110,37 +107,14 @@ class SaveWebpAvif:
         return counter
 
     # -----------------------------
-    # Metadata for AVIF (EXIF UserComment 0x9286)
+    # Metadata for AVIF/WebP (EXIF Make 0x010f + ImageDescription 0x010e)
+    # Unified function for both formats
     # -----------------------------
-    def get_metadata_exif_avif(self, img, prompt, extra_pnginfo=None):
-        """Build EXIF metadata for AVIF using UserComment tag (0x9286)."""
-        try:
-            if args.disable_metadata:
-                return None
-        except Exception:
-            pass
-
-        metadata = {}
-        if prompt is not None:
-            metadata["prompt"] = prompt
-        if extra_pnginfo is not None:
-            metadata.update(extra_pnginfo)
-
-        if not metadata:
-            return None
-
-        exif = img.getexif()
-        exif[0x9286] = json.dumps(metadata)
-        
-        return exif.tobytes()
-
-    # -----------------------------
-    # Metadata for WebP (EXIF Make 0x010f + ImageDescription 0x010e)
-    # -----------------------------
-    def get_metadata_exif_webp(self, img, prompt, extra_pnginfo=None):
+    def get_metadata_exif(self, img, prompt, extra_pnginfo=None):
         """
-        Build EXIF metadata for WebP using Make (0x010f) and ImageDescription (0x010e).
-        This ensures ComfyUI workflow loading compatibility.
+        Build EXIF metadata using Make (0x010f) and ImageDescription (0x010e).
+        This ensures ComfyUI workflow loading compatibility via drag-and-drop.
+        Works for both AVIF and WebP formats.
         """
         try:
             if args.disable_metadata:
@@ -159,11 +133,11 @@ class SaveWebpAvif:
 
         exif = img.getexif()
         
-        # Store prompt in Make tag (0x010f)
+        # Store prompt in Make tag (0x010f) - Required for ComfyUI drag-and-drop
         if "prompt" in metadata:
             exif[0x010f] = "Prompt: " + json.dumps(metadata["prompt"])
         
-        # Store workflow in ImageDescription tag (0x010e)
+        # Store workflow in ImageDescription tag (0x010e) - Required for ComfyUI drag-and-drop
         if "workflow" in metadata:
             exif[0x010e] = "Workflow: " + json.dumps(metadata["workflow"])
 
@@ -176,13 +150,8 @@ class SaveWebpAvif:
         """Save a single image with format-specific settings."""
         kwargs = {}
         
-        # Format-specific metadata handling
-        if fmt.lower() == ".avif":
-            exif_data = self.get_metadata_exif_avif(img, prompt, extra_pnginfo)
-        elif fmt.lower() == ".webp":
-            exif_data = self.get_metadata_exif_webp(img, prompt, extra_pnginfo)
-        else:
-            exif_data = None
+        # Unified metadata handling for both AVIF and WebP
+        exif_data = self.get_metadata_exif(img, prompt, extra_pnginfo)
         
         if exif_data is not None:
             kwargs["exif"] = exif_data
@@ -248,11 +217,9 @@ class SaveWebpAvif:
 
         return {"ui": {"images": results}}
 
-
 NODE_CLASS_MAPPINGS = {
     "SaveWebpAvif": SaveWebpAvif
 }
-
 NODE_DISPLAY_NAME_MAPPINGS = {
     "SaveWebpAvif": "💾 Save WebP / AVIF"
 }
