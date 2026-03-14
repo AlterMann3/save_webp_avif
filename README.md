@@ -1,5 +1,6 @@
-WebP or AVIF image output node for ComfyUI
+# Save WebP / AVIF
 ---
+Custom node for ComfyUI to save images in **WebP** or **AVIF** format.
 
 - Workflow metadata save/load (drap&drop) supported.
 - AVIF subsampling selectable: 4:4:4 (default) or 4:2:0
