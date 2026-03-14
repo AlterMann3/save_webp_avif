@@ -1,5 +1,4 @@
 # Save WebP / AVIF
----
 Custom node for ComfyUI to save images in **WebP** or **AVIF** format.
 
 - Workflow metadata save/load (drap&drop) supported.
