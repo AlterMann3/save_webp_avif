@@ -18,6 +18,7 @@ Installation for Portable ComfyUI:
 https://github.com/AlterMann3/save_webp_avif
 ```
 - Restart ComfyUI.
+  
 
 If AVIF support is missing, run this in your Python environment:
 ```
