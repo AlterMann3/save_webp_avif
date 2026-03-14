@@ -11,7 +11,7 @@ WebP or AVIF image output node for ComfyUI
 <img src="assets/Save_Webp_Avif_ComfyUI.png" width="400">
 
 Installation for Portable ComfyUI:
-- Install <a href="https://github.com/Comfy-Org/ComfyUI-Manager" target="_blank">ComfyUI Manager</a> if it's not already installed, with "install-manager-for-portable-version.bat" file.
+- Install [ComfyUI Manager](https://github.com/Comfy-Org/ComfyUI-Manager) if it's not already installed, with "install-manager-for-portable-version.bat" file.
 - Edit "\ComfyUI_windows_portable\ComfyUI\user\ __manager\config.ini" file -> "security_level = **weak**"
 - Open "ComfyUI Manager" -> click "Install via Git URL" -> paste: "https://github.com/AlterMann3/save_webp_avif" -> Confirm.
 - Restart ComfyUI.
