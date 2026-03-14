@@ -19,7 +19,10 @@ https://github.com/AlterMann3/save_webp_avif
 ```
 - Restart ComfyUI.
 
-(If AVIF support is missing, run `pip install pillow-avif-plugin` in your Python environment.)
+If AVIF support is missing, run this in your Python environment:
+```
+pip install pillow-avif-plugin
+```
 
 
 You can find node in: _`Add Node`_ -> _`image`_ -> _`💾 Save WebP / AVIF`_
