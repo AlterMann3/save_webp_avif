@@ -1,7 +1,7 @@
 [project]
 name = "save_webp_avif"
 description = "Save as WebP or AVIF in ComfyUI."
-version = "0.91"
+version = "0.9"
 license = "Unlicense"
 dependencies = ["piexif", "pillow", "pillow-avif-plugin"]
 keywords = ["avif", "webp", "image-save", "export"]
