@@ -9,6 +9,7 @@ WebP or AVIF image output node for ComfyUI
 - Custom folders not supported.
 - Quality 100: Lossless.
 
+<img src="assets/Save_Webp_Avif_ComfyUI.png">
 
 Installation for portable ComfyUI:
 - Install "ComfyUI Manager" if it's not already installed, with "install-manager-for-portable-version.bat" file.
