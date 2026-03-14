@@ -20,6 +20,8 @@ https://github.com/AlterMann3/save_webp_avif
 ```
 - Restart ComfyUI.
 
+  [![Install with ComfyUI Manager](https://img.shields.io/badge/ComfyUI-Manager-blue?logo=github)](comfyui-manager://install?id=save_webp_avif&url=https://github.com/AlterMann3/save_webp_avif)
+
 #
 If AVIF support is missing, run this in your Python environment:
 ```
