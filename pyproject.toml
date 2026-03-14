@@ -4,6 +4,7 @@ description = "Save as WebP or AVIF in ComfyUI."
 version = "0.8"
 license = "Unlicense"
 dependencies = ["piexif", "pillow", "pillow-avif-plugin"]
+keywords = ["avif", "webp", "image-save", "export"]
 
 [project.urls]
 Repository = "https://github.com/AlterMann3/save_webp_avif"
@@ -13,3 +14,4 @@ Repository = "https://github.com/AlterMann3/save_webp_avif"
 PublisherId = "AlterMann3"
 DisplayName = "save_webp_avif"
 Icon = ""
+Tags = ["image", "save", "avif", "webp"] 
