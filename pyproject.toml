@@ -1,8 +1,8 @@
 [project]
 name = "save_webp_avif"
 description = "Save as WebP or AVIF in ComfyUI."
-version = "1.0"
-license = "AGPL3.0"
+version = "0.8"
+license = "Unlicense"
 dependencies = ["piexif", "pillow", "pillow-avif-plugin"]
 
 [project.urls]
