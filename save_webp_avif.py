@@ -40,7 +40,7 @@ class SaveWebpAvif:
             "required": {
                 "images": ("IMAGE",),
                 "filename_prefix": ("STRING", {"default": "CUI(%y%m%d_%H%M)"}),
-                "quality": ("INT", {"default": 90, "min": 0, "max": 100}),
+                "quality": ("INT", {"default": 90, "min": 1, "max": 100}),
                 "output_format": (cls.output_formats, {"default": ".avif"}),
                 "avif_subsampling": (cls.avif_subsampling_options, {"default": "4:4:4"}),
             },
