@@ -27,4 +27,4 @@ pip install pillow-avif-plugin
 ```
 #
 
-You can find node in: _`Add Node`_ -> _`image`_ -> _`💾 Save WebP / AVIF`_
+You can find node in: _`Add Node`_->_`image`_->_`💾 Save WebP / AVIF`_
