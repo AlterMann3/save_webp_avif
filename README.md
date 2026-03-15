@@ -21,9 +21,9 @@ https://github.com/AlterMann3/save_webp_avif
 - Restart ComfyUI.
 
 #
-If AVIF support is missing, run this in your Python environment:
+If AVIF support is missing, run this command from your "\ComfyUI_windows_portable\python_embeded\" directory:
 ```
-pip install pillow-avif-plugin
+python.exe -m pip install -U pillow-avif-plugin
 ```
 #
 
