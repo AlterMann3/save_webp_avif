@@ -40,7 +40,7 @@ class SaveWebpAvif:
                 "images": ("IMAGE",),
                 "filename_prefix": ("STRING", {"default": "CUI(%y%m%d_%H%M)"}),
                 "output_format": (cls.output_formats, {"default": ".avif"}),
-                "quality": ("INT", {"default": 90, "min": 1, "max": 100}),
+                "quality": ("INT", {"default": 82, "min": 1, "max": 100}),
             },
             "hidden": {
                 "prompt": "PROMPT",
@@ -118,7 +118,7 @@ class SaveWebpAvif:
         if exif_data is not None:
             kwargs["exif"] = exif_data
 
-        kwargs["quality"] = int(quality) if quality else 90
+        kwargs["quality"] = int(quality)
 
         if fmt.lower() == ".avif":
             if not AVIF_SUPPORTED:
