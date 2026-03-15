@@ -12,8 +12,8 @@ Custom node for ComfyUI to save images in **WebP** or **AVIF** format.
 
 #
 Installation for Portable ComfyUI:
-- Install [ComfyUI Manager](https://github.com/Comfy-Org/ComfyUI-Manager) if it's not already installed, via "install-manager-for-portable-version.bat" file.
-- Edit `"\ComfyUI_windows_portable\ComfyUI\user\__manager\config.ini"` file -> _"security_level = **weak**"_
+- Install [ComfyUI Manager](https://github.com/Comfy-Org/ComfyUI-Manager) if it's not already installed, via `"install-manager-for-portable-version.bat"` file.
+- Edit `"\ComfyUI_windows_portable\ComfyUI\user\__manager\config.ini"` file -> _"security_level = **weak**"_  
 - Open `"ComfyUI Manager"` -> click `"Install via Git URL"` -> copy&paste this and confirm:
 ```
 https://github.com/AlterMann3/save_webp_avif
