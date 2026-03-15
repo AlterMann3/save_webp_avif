@@ -39,8 +39,8 @@ class SaveWebpAvif:
             "required": {
                 "images": ("IMAGE",),
                 "filename_prefix": ("STRING", {"default": "CUI(%y%m%d_%H%M)"}),
-                "quality": ("INT", {"default": 90, "min": 1, "max": 100}),
                 "output_format": (cls.output_formats, {"default": ".avif"}),
+                "quality": ("INT", {"default": 90, "min": 1, "max": 100}),
             },
             "hidden": {
                 "prompt": "PROMPT",
