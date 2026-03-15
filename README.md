@@ -2,7 +2,7 @@
 Custom node for ComfyUI to save images in **WebP** or **AVIF** format.
 
 - Workflow metadata save/load (drap&drop) supported.
-- AVIF subsampling selectable: 4:4:4 (default) or 4:2:0
+- AVIF subsampling: 4:4:4
 - AVIF encoder speed is optimum: 6
 - Multiple (batch) images supported.
 - Custom filenames and date/time supported. (https://www.man7.org/linux/man-pages/man1/date.1.html)
