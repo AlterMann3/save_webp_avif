@@ -8,7 +8,7 @@ Custom node for ComfyUI to save images in **WebP** or **AVIF** format.
 - Custom filenames and date/time supported. (https://www.man7.org/linux/man-pages/man1/date.1.html)
 - Quality 100 = Lossless.
 
-<img src="assets/SaveWebpAvif_ComfyUI1.png" width="350">
+<img src="assets/SaveWebpAvif_ComfyUI.png" width="350">
 
 #
 Installation for Portable ComfyUI:
