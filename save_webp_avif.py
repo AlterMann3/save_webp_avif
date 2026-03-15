@@ -22,15 +22,14 @@ except Exception:
 
 class SaveWebpAvif:
     """Save node for WebP and AVIF with ComfyUI workflow metadata support."""
-    
+
     RETURN_TYPES = ()
     FUNCTION = "save_images"
     OUTPUT_NODE = True
     CATEGORY = "image"
     type = "output"
     output_formats = [".webp", ".avif"]
-    avif_subsampling_options = ["4:2:0", "4:4:4"]
-
+    
     def __init__(self):
         self.output_dir = os.path.join(os.path.dirname(os.path.realpath(__file__)), "..", "..", "output")
 
@@ -42,7 +41,6 @@ class SaveWebpAvif:
                 "filename_prefix": ("STRING", {"default": "CUI(%y%m%d_%H%M)"}),
                 "quality": ("INT", {"default": 90, "min": 1, "max": 100}),
                 "output_format": (cls.output_formats, {"default": ".avif"}),
-                "avif_subsampling": (cls.avif_subsampling_options, {"default": "4:4:4"}),
             },
             "hidden": {
                 "prompt": "PROMPT",
@@ -62,27 +60,27 @@ class SaveWebpAvif:
     def get_latest_counter(self, folder_path, filename_prefix, counter_digits=3, output_format='.avif'):
         """Find highest counter value and return next value to prevent overwriting."""
         counter = 1
-        
+
         if not os.path.exists(folder_path):
             return counter
-        
+
         try:
             files = os.listdir(folder_path)
             ext = output_format.lower()
             pattern = rf"{re.escape(filename_prefix)}.*?_(\d{{{counter_digits}}}){re.escape(ext)}"
-            
+
             counters = []
             for file in files:
                 if file.startswith(filename_prefix) and file.endswith(ext):
                     match = re.match(pattern, file)
                     if match:
                         counters.append(int(match.group(1)))
-            
+
             if counters:
                 counter = max(counters) + 1
         except Exception as e:
             print(f"[save_webp_avif] error finding latest counter: {e}")
-        
+
         return counter
 
     def get_metadata_exif(self, img, prompt, extra_pnginfo=None):
@@ -103,19 +101,19 @@ class SaveWebpAvif:
             return None
 
         exif = img.getexif()
-        
+
         if "prompt" in metadata:
             exif[0x010f] = "Prompt: " + json.dumps(metadata["prompt"])
-        
+
         if "workflow" in metadata:
             exif[0x010e] = "Workflow: " + json.dumps(metadata["workflow"])
 
         return exif.tobytes()
 
-    def save_single_image(self, img, path, fmt, quality, avif_subsampling, prompt, extra_pnginfo):
+    def save_single_image(self, img, path, fmt, quality, prompt, extra_pnginfo):
         """Save a single image with format-specific settings."""
         kwargs = {}
-        
+
         exif_data = self.get_metadata_exif(img, prompt, extra_pnginfo)
         if exif_data is not None:
             kwargs["exif"] = exif_data
@@ -126,7 +124,7 @@ class SaveWebpAvif:
             if not AVIF_SUPPORTED:
                 raise RuntimeError("AVIF selected but pillow-avif-plugin not available.")
             kwargs["speed"] = 6
-            kwargs["subsampling"] = avif_subsampling
+            kwargs["subsampling"] = "4:4:4"
 
         elif fmt.lower() == ".webp":
             if kwargs["quality"] >= 100:
@@ -134,8 +132,8 @@ class SaveWebpAvif:
 
         img.save(path, **kwargs)
 
-    def save_images(self, images, filename_prefix="CUI(%y%m%d_%H%M)", quality=90, 
-                    output_format=".avif", avif_subsampling="4:4:4", prompt=None, extra_pnginfo=None):
+    def save_images(self, images, filename_prefix="CUI(%y%m%d_%H%M)", quality=90,
+                    output_format=".avif", prompt=None, extra_pnginfo=None):
 
         timestamp = datetime.now()
         filename_base = self.build_filename_from_prefix(filename_prefix, timestamp)
@@ -156,7 +154,7 @@ class SaveWebpAvif:
             out_path = os.path.join(self.output_dir, file)
 
             try:
-                self.save_single_image(pil_img, out_path, output_format, quality, avif_subsampling, prompt, extra_pnginfo)
+                self.save_single_image(pil_img, out_path, output_format, quality, prompt, extra_pnginfo)
             except Exception as e:
                 print(f"[save_webp_avif] error saving {out_path}: {e}")
 
