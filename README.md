@@ -30,12 +30,12 @@ You can find node in: _`Add Node`_->_`image`_->_`💾 Save WebP / AVIF`_
 #
 
 **AVIF settings:**  
-100 = Lossless.  
-98 = Near-Lossless.  
-97 = Start of soft-banding.  
-96 = High quality final image.  
-80 = Normal quality.  
-60 = Draft/test images.  
+100 = Lossless.  (filesize: 100%)   
+98 = Near-Lossless.  (filesize: ~71%)   
+97 = Start of soft-banding.  (filesize: ~53%)   
+96 = High quality final image.  (filesize: ~42%)   
+80 = Normal quality.  (filesize: ~17%)   
+60 = Draft/test images.  (filesize: ~11%)   
 
 **WebP settings:**  
 100 = Lossless. (filesize: 100%)  
