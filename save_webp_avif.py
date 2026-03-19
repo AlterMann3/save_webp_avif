@@ -123,7 +123,7 @@ class SaveWebpAvif:
         if fmt.lower() == ".avif":
             if not AVIF_SUPPORTED:
                 raise RuntimeError("AVIF selected but pillow-avif-plugin not available.")
-            kwargs["speed"] = 6
+            kwargs["speed"] = 5
             kwargs["subsampling"] = "4:4:4"
 
         elif fmt.lower() == ".webp":
