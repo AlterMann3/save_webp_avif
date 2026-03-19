@@ -30,20 +30,20 @@ You can find node in: _`Add Node`_->_`image`_->_`💾 Save WebP / AVIF`_
 
 #
 
-Recommended AVIF settings:
-100 = Lossless.
- 98 = Near-Lossless.
- 97 = Start of soft-banding.
- 96 = High quality final image.
- 80 = Normal quality.
- 60 = Draft/test images.
+Recommended AVIF settings:  
+100 = Lossless.  
+98 = Near-Lossless.  
+97 = Start of soft-banding.  
+96 = High quality final image.  
+80 = Normal quality.  
+60 = Draft/test images.  
 
- Recommended WEBP settings:
- 100 = Lossless. (filesize: 100%)
-  98 = High quality. (filesize: ~31%)
-  94 = Medium quality. (filesize: ~22%)
-  86 = Low quality. (filesize: ~14%)
-  65 = Draft/test images. (filesize: ~8%)
+Recommended WEBP settings:  
+100 = Lossless. (filesize: 100%)  
+98 = High quality. (filesize: ~31%)  
+94 = Medium quality. (filesize: ~22%)  
+86 = Low quality. (filesize: ~14%)  
+65 = Draft/test images. (filesize: ~8%)  
 
 Due to 4:4:4 subsampling, AVIF offers better _color quality_ than WEBP, there is no color bleeding in AVIF. (However, WEBP “100” is lossless and uses 4:4:4.)
 
