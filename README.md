@@ -47,6 +47,6 @@ WebP settings:
 
 Due to 4:4:4 subsampling, AVIF offers better _color quality_ than WebP, there is no color bleeding in AVIF. (However, WebP "100" is also 4:4:4.)
 
-Actually, you don’t need to use WebP. AVIF always produces better results. However, since WebP is more widely used, I included it for compatibility.
+Actually, you don’t need to use WebP. AVIF always produces better results. But since WebP is more widely used, I included it for compatibility.
 
 Since ComfyUI typically generates output from lossy sources, the raw output is also lossy; therefore, there is no advantage to using lossless or near-lossless settings.
