@@ -5,7 +5,6 @@ Custom node for ComfyUI to save images in **WebP** or **AVIF** format.
 - AVIF subsampling: 4:4:4, encoder speed: 6.
 - Multiple (batch) images supported.
 - Custom filenames and date/time supported. (https://www.man7.org/linux/man-pages/man1/date.1.html)
-- Quality 100 = Lossless.
 
 <img src="assets/SaveWebpAvif_ComfyUI.png" width="350">
 
