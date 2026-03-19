@@ -38,13 +38,15 @@ Recommended AVIF settings:
 80 = Normal quality.  
 60 = Draft/test images.  
 
-Recommended WEBP settings:  
+Recommended WebP settings:  
 100 = Lossless. (filesize: 100%)  
 98 = High quality. (filesize: ~31%)  
 94 = Medium quality. (filesize: ~22%)  
 86 = Low quality. (filesize: ~14%)  
 65 = Draft/test images. (filesize: ~8%)  
 
-Due to 4:4:4 subsampling, AVIF offers better _color quality_ than WEBP, there is no color bleeding in AVIF. (However, WEBP “100” is lossless and uses 4:4:4.)
+Due to 4:4:4 subsampling, AVIF offers better _color quality_ than WebP, there is no color bleeding in AVIF. (However, WebP "100" is also 4:4:4.)
 
-Actually, you don’t need to use WEBP. AVIF always produces better results. However, since WEBP is more widely used, I included it for compatibility.
+Actually, you don’t need to use WebP. AVIF always produces better results. However, since WebP is more widely used, I included it for compatibility.
+
+Since ComfyUI typically generates output from lossy sources, the raw output is also lossy; therefore, there is no advantage to using lossless or near-lossless settings.
